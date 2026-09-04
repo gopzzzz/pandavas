@@ -210,6 +210,80 @@
             </ul>
           </li>
 
+
+          <li class="nav-item">
+    <a href="{{ route('departments.index') }}" class="nav-link">
+
+        <i class="nav-icon fas fa-building"></i>
+
+        <p>
+            Departments
+        </p>
+
+    </a>
+</li>
+
+
+<li class="nav-item">
+    <a href="{{ route('staff_registrations.index') }}" class="nav-link">
+
+        <i class="nav-icon fas fa-user-tie"></i>
+
+        <p>
+            Staff Registrations
+        </p>
+
+    </a>
+</li>
+
+
+
+<li class="nav-item">
+    <a href="{{ route('tours.index') }}" class="nav-link">
+
+        <i class="nav-icon fas fa-route"></i>
+
+        <p>
+            Tours
+        </p>
+
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           <li class="nav-item">
     <a href="{{ route('logout') }}" class="nav-link">
         <i class="nav-icon fas fa-sign-out-alt"></i>
