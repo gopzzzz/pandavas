@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\StaffRegistrationsController;
 use App\Http\Controllers\ToursController;
+use App\Http\Controllers\BookingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -77,6 +78,24 @@ Route::post('/tours', [ToursController::class, 'store'])
 Route::put('/tours/{id}', [ToursController::class, 'update'])
     ->name('tours.update');
 
+
+    Route::get('/bookings', [BookingController::class, 'index'])
+    ->name('bookings.index');
+
+Route::post('/bookings', [BookingController::class, 'store'])
+    ->name('bookings.store');
+
+Route::get('/bookinglist', [BookingController::class, 'list'])
+    ->name('bookings.list');
+
+Route::put('/bookings/{id}', [BookingController::class, 'update'])
+    ->name('bookings.edit');
+
+    Route::get('/booking/{id}/edit', [BookingController::class, 'edit'])
+    ->name('bookings.edit');
+
+Route::get('/booking/{id}', [BookingController::class, 'show'])
+    ->name('bookings.show');
 
 
 
