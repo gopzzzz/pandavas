@@ -174,7 +174,7 @@
           </li>
          
          
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
@@ -208,7 +208,7 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li> -->
 
 
           <li class="nav-item">
@@ -249,6 +249,19 @@
 
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('bookings.list') }}" class="nav-link">
+
+        <i class="nav-icon fas fa-route"></i>
+
+        <p>
+           Bookings
+        </p>
+
+    </a>
+</li>
+
 
 
 

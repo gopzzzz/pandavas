@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\StaffRegistrationsController;
 use App\Http\Controllers\ToursController;
+<<<<<<< HEAD
 use App\Http\Controllers\BookingMastersController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\UploadsController;
@@ -17,6 +18,9 @@ use App\Http\Controllers\UploadsController;
 
 
 
+=======
+use App\Http\Controllers\BookingController;
+>>>>>>> 413b63304942b81b82f18125453d41e4052cbd28
 
 Route::get('/', function () {
     return view('welcome');
@@ -85,6 +89,24 @@ Route::post('/tours', [ToursController::class, 'store'])
 Route::put('/tours/{id}', [ToursController::class, 'update'])
     ->name('tours.update');
 
+
+    Route::get('/bookings', [BookingController::class, 'index'])
+    ->name('bookings.index');
+
+Route::post('/bookings', [BookingController::class, 'store'])
+    ->name('bookings.store');
+
+Route::get('/bookinglist', [BookingController::class, 'list'])
+    ->name('bookings.list');
+
+Route::put('/bookings/{id}', [BookingController::class, 'update'])
+    ->name('bookings.edit');
+
+    Route::get('/booking/{id}/edit', [BookingController::class, 'edit'])
+    ->name('bookings.edit');
+
+Route::get('/booking/{id}', [BookingController::class, 'show'])
+    ->name('bookings.show');
 
 
 
