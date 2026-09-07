@@ -266,7 +266,7 @@
 
 
 
-
+<!--  
 <li class="nav-item">
     <a href="{{ route('booking_masters.index') }}" class="nav-link">
 
@@ -277,7 +277,8 @@
         </p>
 
     </a>
-</li>
+</li> 
+-->
 
 
 

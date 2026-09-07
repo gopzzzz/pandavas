@@ -94,5 +94,5 @@
         <!-- /.row -->
       </div><!--/. container-fluid -->
     </section>
-
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
     @endsection

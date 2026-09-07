@@ -9,18 +9,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\StaffRegistrationsController;
 use App\Http\Controllers\ToursController;
-<<<<<<< HEAD
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingMastersController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\UploadsController;
-
-
-
-
-
-=======
-use App\Http\Controllers\BookingController;
->>>>>>> 413b63304942b81b82f18125453d41e4052cbd28
 
 Route::get('/', function () {
     return view('welcome');
