@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\StaffRegistrationsController;
 use App\Http\Controllers\ToursController;
+use App\Http\Controllers\BookingMastersController;
+use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\UploadsController;
+
+
+
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -76,6 +84,53 @@ Route::post('/tours', [ToursController::class, 'store'])
 
 Route::put('/tours/{id}', [ToursController::class, 'update'])
     ->name('tours.update');
+
+
+
+
+
+
+
+Route::get('/booking-masters', [BookingMastersController::class, 'index'])
+    ->name('booking_masters.index');
+
+Route::post('/booking-masters', [BookingMastersController::class, 'store'])
+    ->name('booking_masters.store');
+
+Route::put('/booking-masters/{id}', [BookingMastersController::class, 'update'])
+    ->name('booking_masters.update');
+
+
+
+
+
+Route::get('/blogs', [BlogsController::class, 'index'])
+    ->name('blogs.index');
+
+Route::post('/blogs', [BlogsController::class, 'store'])
+    ->name('blogs.store');
+
+Route::put('/blogs/{id}', [BlogsController::class, 'update'])
+    ->name('blogs.update');
+
+Route::delete('/blogs/{id}', [BlogsController::class, 'destroy'])
+    ->name('blogs.destroy');
+
+
+
+
+
+
+
+
+Route::get('/upload-images', [UploadsController::class, 'index'])
+    ->name('uploads.index');
+
+Route::post('/upload-images', [UploadsController::class, 'store'])
+    ->name('uploads.store');
+
+Route::delete('/upload-images/{id}', [UploadsController::class, 'destroy'])
+    ->name('uploads.destroy');
 
 
 
