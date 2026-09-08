@@ -266,20 +266,6 @@
 
 
 
-<!--  
-<li class="nav-item">
-    <a href="{{ route('booking_masters.index') }}" class="nav-link">
-
-        <i class="nav-icon fas fa-ticket-alt"></i>
-
-        <p>
-            Booking Masters
-        </p>
-
-    </a>
-</li> 
--->
-
 
 
 
@@ -308,7 +294,12 @@
 
 
 
-
+<li class="nav-item">
+    <a href="{{ route('revenue_reports.index') }}" class="nav-link">
+        <i class="nav-icon fas fa-chart-line"></i>
+        <p>Revenue Reports</p>
+    </a>
+</li>
 
 
 
