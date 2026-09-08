@@ -218,7 +218,7 @@
 
 
                                                 <form method="POST"
-                                                      action="{{ route('booking_masters.update', $booking->id) }}">
+                                                      action="{{ route('bookings.update', $booking->id) }}">
 
                                                     @csrf
                                                     @method('PUT')
@@ -537,7 +537,7 @@
 
 
             <form method="POST"
-                  action="{{ route('booking_masters.store') }}">
+                  action="{{ route('bookings.store') }}">
 
                 @csrf
 

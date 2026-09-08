@@ -13,6 +13,8 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingMastersController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\UploadsController;
+use App\Http\Controllers\RevenueReportsController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -82,7 +84,7 @@ Route::put('/tours/{id}', [ToursController::class, 'update'])
     ->name('tours.update');
 
 
-    Route::get('/bookings', [BookingController::class, 'index'])
+Route::get('/bookings', [BookingController::class, 'index'])
     ->name('bookings.index');
 
 Route::post('/bookings', [BookingController::class, 'store'])
@@ -97,22 +99,33 @@ Route::get('/booking/{id}/edit', [BookingController::class, 'edit'])
 Route::put('/booking/{id}', [BookingController::class, 'update'])
     ->name('bookings.update');
 
+Route::put('/bookings/{id}', [BookingController::class, 'update'])
+    ->name('bookings.update');
+
+Route::get('/booking/{id}/edit', [BookingController::class, 'edit'])
+    ->name('bookings.edit');
+
 Route::get('/booking/{id}', [BookingController::class, 'show'])
     ->name('bookings.show');
 
+Route::get('/tour-pickup-locations/{tour_id}', 
+    [BookingController::class, 'getPickupLocations']
+)->name('tour.pickup.locations');
 
 
 
 
+// Route::get('/bookings', [BookingMastersController::class, 'index'])
+//     ->name('bookings.index');
 
-Route::get('/booking-masters', [BookingMastersController::class, 'index'])
-    ->name('booking_masters.index');
+// Route::post('/bookings', [BookingMastersController::class, 'store'])
+//     ->name('bookings.store');
 
-Route::post('/booking-masters', [BookingMastersController::class, 'store'])
-    ->name('booking_masters.store');
+// Route::put('/bookings/{id}', [BookingMastersController::class, 'update'])
+//     ->name('bookings.update');
 
-Route::put('/booking-masters/{id}', [BookingMastersController::class, 'update'])
-    ->name('booking_masters.update');
+// Route::get('/bookinglist', [BookingMastersController::class, 'list'])
+//     ->name('bookings.list');
 
 
 
@@ -148,6 +161,10 @@ Route::delete('/upload-images/{id}', [UploadsController::class, 'destroy'])
 
 
 
+Route::get('/revenue-reports', [RevenueReportsController::class, 'index'])
+    ->name('revenue_reports.index');
+
+    
 
  
 

@@ -7,10 +7,13 @@ use Illuminate\Support\Facades\DB;
 
 class BookingMastersController extends Controller
 {
-    // LIST
+    // =========================================
+    // LIST BOOKINGS
+    // =========================================
+
     public function index()
     {
-        $bookings = DB::table('booking_masters')
+        $bookings = DB::table('bookingmasters')
             ->orderBy('id', 'asc')
             ->get();
 
@@ -22,91 +25,215 @@ class BookingMastersController extends Controller
     }
 
 
-    // ADD
+    // =========================================
+    // ADD BOOKING
+    // =========================================
+
     public function store(Request $request)
     {
         $request->validate([
-            'booking_personname' => 'required|string|max:150',
-            'phonenumber' => 'required|string|max:20',
-            'mail' => 'required|email|max:150',
+            'booking_personname' => 'required|string|max:255',
+            'phonenumber' => 'required|string|max:255',
+            'mail' => 'required|email|max:255',
             'address' => 'required|string',
-            'totalnumber' => 'required|integer|min:1',
+
+            'totalnumber' => 'required|string|max:45',
+
             'tour_id' => 'required|integer',
+
             'totalamount' => 'required|numeric|min:0',
+
             'bookingdate' => 'required|date',
+
             'pickuplocation' => 'required|string|max:255',
-            'payment_status' => 'required|in:Pending,Partially Paid,Paid',
-            'payment_mode' => 'required|in:Cash,Bank Transfer,UPI',
+
+            'payment_status' => 'required|integer',
+
+            'payment_mode' => 'required|integer',
+
             'received_amount' => 'required|numeric|min:0',
+
             'pending_amount' => 'required|numeric|min:0',
-            'cus_id' => 'required|string|max:50',
+
+            'cus_id' => 'required|integer',
         ]);
 
-        DB::table('booking_masters')->insert([
+
+        DB::table('bookingmasters')->insert([
+
             'booking_personname' => $request->booking_personname,
+
             'phonenumber' => $request->phonenumber,
+
             'mail' => $request->mail,
+
             'address' => $request->address,
+
             'totalnumber' => $request->totalnumber,
+
             'tour_id' => $request->tour_id,
+
             'totalamount' => $request->totalamount,
+
             'bookingdate' => $request->bookingdate,
+
             'pickuplocation' => $request->pickuplocation,
+
             'payment_status' => $request->payment_status,
+
             'payment_mode' => $request->payment_mode,
+
             'received_amount' => $request->received_amount,
+
             'pending_amount' => $request->pending_amount,
+
             'cus_id' => $request->cus_id,
+
+            // 0 = Pending
+            'booking_status' => 0,
+
             'created_at' => now(),
+
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('booking_masters.index')
+
+        return redirect()
+            ->route('bookings.index')
             ->with('success', 'Booking added successfully.');
     }
 
 
-    // EDIT / UPDATE
+    // =========================================
+    // UPDATE BOOKING
+    // =========================================
+
     public function update(Request $request, $id)
     {
         $request->validate([
-            'booking_personname' => 'required|string|max:150',
-            'phonenumber' => 'required|string|max:20',
-            'mail' => 'required|email|max:150',
+            'booking_personname' => 'required|string|max:255',
+            'phonenumber' => 'required|string|max:255',
+            'mail' => 'required|email|max:255',
             'address' => 'required|string',
-            'totalnumber' => 'required|integer|min:1',
+
+            'totalnumber' => 'required|string|max:45',
+
             'tour_id' => 'required|integer',
+
             'totalamount' => 'required|numeric|min:0',
+
             'bookingdate' => 'required|date',
+
             'pickuplocation' => 'required|string|max:255',
-            'payment_status' => 'required|in:Pending,Partially Paid,Paid',
-            'payment_mode' => 'required|in:Cash,Bank Transfer,UPI',
+
+            'payment_status' => 'required|integer',
+
+            'payment_mode' => 'required|integer',
+
             'received_amount' => 'required|numeric|min:0',
+
             'pending_amount' => 'required|numeric|min:0',
-            'cus_id' => 'required|string|max:50',
+
+            'cus_id' => 'required|integer',
         ]);
 
-        DB::table('booking_masters')
+
+        DB::table('bookingmasters')
             ->where('id', $id)
             ->update([
+
                 'booking_personname' => $request->booking_personname,
+
                 'phonenumber' => $request->phonenumber,
+
                 'mail' => $request->mail,
+
                 'address' => $request->address,
+
                 'totalnumber' => $request->totalnumber,
+
                 'tour_id' => $request->tour_id,
+
                 'totalamount' => $request->totalamount,
+
                 'bookingdate' => $request->bookingdate,
+
                 'pickuplocation' => $request->pickuplocation,
+
                 'payment_status' => $request->payment_status,
+
                 'payment_mode' => $request->payment_mode,
+
                 'received_amount' => $request->received_amount,
+
                 'pending_amount' => $request->pending_amount,
+
                 'cus_id' => $request->cus_id,
+
                 'updated_at' => now(),
             ]);
 
-        return redirect()->route('booking_masters.index')
+
+        return redirect()
+            ->route('bookings.index')
             ->with('success', 'Booking updated successfully.');
+    }
+
+
+    // =========================================
+    // SHOW SINGLE BOOKING
+    // =========================================
+
+    public function show($id)
+    {
+        $booking = DB::table('bookingmasters')
+            ->where('id', $id)
+            ->first();
+
+        if (!$booking) {
+            return redirect()
+                ->route('bookings.index')
+                ->with('error', 'Booking not found.');
+        }
+
+        return view('booking_show', compact('booking'));
+    }
+
+
+    // =========================================
+    // EDIT PAGE
+    // =========================================
+
+    public function edit($id)
+    {
+        $booking = DB::table('bookingmasters')
+            ->where('id', $id)
+            ->first();
+
+        if (!$booking) {
+            return redirect()
+                ->route('bookings.index')
+                ->with('error', 'Booking not found.');
+        }
+
+        $tours = DB::table('tours')
+            ->orderBy('tourname', 'asc')
+            ->get();
+
+        return view('booking_edit', compact('booking', 'tours'));
+    }
+
+
+    // =========================================
+    // BOOKING LIST
+    // =========================================
+
+    public function list()
+    {
+        $bookings = DB::table('bookingmasters')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        return view('bookinglist', compact('bookings'));
     }
 }

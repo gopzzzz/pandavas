@@ -136,8 +136,9 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+       -->
+      <span class="brand-text font-weight-light">PANDAVAS TOURS ADMIN</span>
     </a>
 
     <!-- Sidebar -->
@@ -162,16 +163,13 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            
-          </li>
+       <li class="nav-item">
+    <a href="{{ route('dashboard') }}"
+       class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-tachometer-alt"></i>
+        <p>Dashboard</p>
+    </a>
+</li>
          
          
           <!-- <li class="nav-item">
@@ -211,109 +209,61 @@
           </li> -->
 
 
-          <li class="nav-item">
-    <a href="{{ route('departments.index') }}" class="nav-link">
-
+        <li class="nav-item">
+    <a href="{{ route('departments.index') }}"
+       class="nav-link {{ request()->routeIs('departments.*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-building"></i>
-
-        <p>
-            Departments
-        </p>
-
+        <p>Departments</p>
     </a>
 </li>
 
-
 <li class="nav-item">
-    <a href="{{ route('staff_registrations.index') }}" class="nav-link">
-
+    <a href="{{ route('staff_registrations.index') }}"
+       class="nav-link {{ request()->routeIs('staff_registrations.*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-user-tie"></i>
-
-        <p>
-            Staff Registrations
-        </p>
-
+        <p>Staff Registrations</p>
     </a>
 </li>
 
-
-
 <li class="nav-item">
-    <a href="{{ route('tours.index') }}" class="nav-link">
-
+    <a href="{{ route('tours.index') }}"
+       class="nav-link {{ request()->routeIs('tours.*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-route"></i>
-
-        <p>
-            Tours
-        </p>
-
+        <p>Tours</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('bookings.list') }}" class="nav-link">
-
+    <a href="{{ route('bookings.list') }}"
+       class="nav-link {{ request()->routeIs('bookings.*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-route"></i>
-
-        <p>
-           Bookings
-        </p>
-
+        <p>Bookings</p>
     </a>
 </li>
 
-
-
-
-
-<!--  
 <li class="nav-item">
-    <a href="{{ route('booking_masters.index') }}" class="nav-link">
-
-        <i class="nav-icon fas fa-ticket-alt"></i>
-
-        <p>
-            Booking Masters
-        </p>
-
-    </a>
-</li> 
--->
-
-
-
-
-<li class="nav-item">
-    <a href="{{ route('blogs.index') }}" class="nav-link">
-
+    <a href="{{ route('blogs.index') }}"
+       class="nav-link {{ request()->routeIs('blogs.*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-blog"></i>
-
-        <p>
-            Blogs
-        </p>
-
+        <p>Blogs</p>
     </a>
 </li>
 
-
-
 <li class="nav-item">
-    <a href="{{ route('uploads.index') }}" class="nav-link">
+    <a href="{{ route('uploads.index') }}"
+       class="nav-link {{ request()->routeIs('uploads.*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-images"></i>
         <p>Uploads</p>
     </a>
 </li>
 
-
-
-
-
-
-
-
-
-
-
+<li class="nav-item">
+    <a href="{{ route('revenue_reports.index') }}"
+       class="nav-link {{ request()->routeIs('revenue_reports.*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-chart-line"></i>
+        <p>Revenue Reports</p>
+    </a>
+</li>
 
 
 

@@ -544,5 +544,37 @@
         padding: 12px 14px;
     }
 }
+
+
     </style>
+
+    <style>
+    .form-select {
+        width: 100%;
+        height: 45px;
+        padding: 8px 40px 8px 12px;
+        font-size: 15px;
+        color: #333;
+        background-color: #fff;
+        border: 1px solid #ced4da;
+        border-radius: 6px;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .form-select:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+    }
+
+    .form-select:hover {
+        border-color: #999;
+    }
+
+    .form-select option {
+        padding: 10px;
+        font-size: 15px;
+    }
+</style>
 </head>
