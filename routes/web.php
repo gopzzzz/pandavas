@@ -106,17 +106,17 @@ Route::get('/booking/{id}', [BookingController::class, 'show'])
 
 
 
-Route::get('/bookings', [BookingMastersController::class, 'index'])
-    ->name('bookings.index');
+// Route::get('/bookings', [BookingMastersController::class, 'index'])
+//     ->name('bookings.index');
 
-Route::post('/bookings', [BookingMastersController::class, 'store'])
-    ->name('bookings.store');
+// Route::post('/bookings', [BookingMastersController::class, 'store'])
+//     ->name('bookings.store');
 
-Route::put('/bookings/{id}', [BookingMastersController::class, 'update'])
-    ->name('bookings.update');
+// Route::put('/bookings/{id}', [BookingMastersController::class, 'update'])
+//     ->name('bookings.update');
 
-Route::get('/bookinglist', [BookingMastersController::class, 'list'])
-    ->name('bookings.list');
+// Route::get('/bookinglist', [BookingMastersController::class, 'list'])
+//     ->name('bookings.list');
 
 
 
