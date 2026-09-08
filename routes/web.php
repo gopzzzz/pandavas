@@ -91,11 +91,11 @@ Route::post('/bookings', [BookingController::class, 'store'])
 Route::get('/bookinglist', [BookingController::class, 'list'])
     ->name('bookings.list');
 
-Route::put('/bookings/{id}', [BookingController::class, 'update'])
+Route::get('/booking/{id}/edit', [BookingController::class, 'edit'])
     ->name('bookings.edit');
 
-    Route::get('/booking/{id}/edit', [BookingController::class, 'edit'])
-    ->name('bookings.edit');
+Route::put('/booking/{id}', [BookingController::class, 'update'])
+    ->name('bookings.update');
 
 Route::get('/booking/{id}', [BookingController::class, 'show'])
     ->name('bookings.show');

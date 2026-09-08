@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\BookingMaster;
 use App\Models\BookingTrans;
+use App\Models\Tour;
 
 
 class BookingController extends Controller

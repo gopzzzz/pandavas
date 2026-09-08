@@ -341,7 +341,7 @@
     @foreach($tours as $tour)
         <option value="{{ $tour->id }}"
             {{ old('tour_id') == $tour->id ? 'selected' : '' }}>
-            {{ $tour->tourname }}
+            {{ $tour->tourname }} - {{ \Carbon\Carbon::parse($tour->date)->format('d-m-Y') }}
         </option>
     @endforeach
 </select>
