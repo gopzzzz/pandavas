@@ -21,6 +21,7 @@ class Tour extends Model
         'date',
         'time',
         'pickuplocations',
+        'staff_id'
     ];
 
     public function bookings()

@@ -13,8 +13,9 @@ class ToursController extends Controller
         $tours = DB::table('tours')
             ->orderBy('id', 'asc')
             ->get();
+        $staff=DB::table('staff_registrations')->get();
 
-        return view('tours', compact('tours'));
+        return view('tours', compact('tours','staff'));
     }
 
 
@@ -53,6 +54,7 @@ class ToursController extends Controller
             'date' => $request->date,
             'time' => $request->time,
             'pickuplocations' => $request->pickuplocations,
+            'staff_id' => $request->staff,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -122,6 +124,7 @@ class ToursController extends Controller
                 'date' => $request->date,
                 'time' => $request->time,
                 'pickuplocations' => $request->pickuplocations,
+                'staff_id' => $request->staff,
                 'updated_at' => now(),
             ]);
 

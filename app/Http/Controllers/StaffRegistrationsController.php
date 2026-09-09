@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Hash;
 class StaffRegistrationsController extends Controller
 {
     // LIST
@@ -38,6 +38,42 @@ class StaffRegistrationsController extends Controller
             'adharcard' => 'required|file|mimes:jpg,jpeg,png,pdf|max:10240',
         ]);
 
+
+$userid = DB::table('users')->insertGetId([
+    'name'       => $request->staff_name,
+    'email'      => $request->email,
+    'password'   => Hash::make('staff@123'),
+    'role'       => 2,
+    'created_at' => now(),
+    'updated_at' => now(),
+]);
+
+
+
+// Send credentials
+// $to = $request->email;
+// $subject = "Your Staff Login Credentials";
+
+// $message = "Dear {$request->staff_name},
+
+// Your staff account has been created successfully.
+
+// Login Email: {$request->email}
+// Password: staff@123
+
+// Please change your password after your first login.
+
+// Regards,
+// Admin";
+
+// $headers  = "From: admin@yourdomain.com\r\n";
+// $headers .= "Reply-To: admin@yourdomain.com\r\n";
+// $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+// mail($to, $subject, $message, $headers);
+
+
+
         $uploadPath = public_path('uploads/adharcard');
 
         if (!file_exists($uploadPath)) {
@@ -56,6 +92,7 @@ class StaffRegistrationsController extends Controller
             'address' => $request->address,
             'marriage_status' => $request->marriage_status,
             'adharcard' => $adharcardName,
+            'user_id'   =>$userid,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

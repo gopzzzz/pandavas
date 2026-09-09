@@ -26,6 +26,7 @@ class BookingMaster extends Model
         'received_amount',
         'pending_amount',
         'cus_id',
+        'discount'
     ];
 
     public function tour()

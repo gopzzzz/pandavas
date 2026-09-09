@@ -1244,7 +1244,8 @@
                                         data-pickup="{{ e($tour->pickuplocations) }}"
                                         data-features="{{ e($tour->features) }}"
                                         data-description="{{ e($tour->description) }}"
-                                        data-image="{{ $tour->image }}">
+                                        data-image="{{ $tour->image }}"
+                                        data-staff="{{$tour->staff_id}}">
 
                                     <i class="fas fa-edit"></i>
                                     Edit
@@ -1367,7 +1368,7 @@
 
                         <div class="row">
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
 
                                 <label>
                                     Tour Name <b>*</b>
@@ -1388,7 +1389,7 @@
                             </div>
 
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
 
                                 <label>
                                     Tour Amount <b>*</b>
@@ -1409,7 +1410,7 @@
                             </div>
 
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
 
                                 <label>
                                     Total Seats <b>*</b>
@@ -1425,6 +1426,26 @@
                                            class="form-control"
                                            min="1"
                                            required>
+
+                                </div>
+
+                            </div>
+
+                             <div class="col-md-3">
+
+                                <label>
+                                   Assigned Staff <b>*</b>
+                                </label>
+
+                                <div class="tour-form-input">
+
+                                    <i class="fas fa-users"></i>
+
+                                    <select name="staff" class="form-control" id="edit_staff_name" >
+                                        @foreach($staff as $key)
+                                        <option value="{{$key->id}}">{{$key->staff_name}}</option>
+                                        @endforeach
+                                    </select>
 
                                 </div>
 
@@ -1739,7 +1760,7 @@
 
                         <div class="row">
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
 
                                 <label>Tour Name <b>*</b></label>
 
@@ -1756,7 +1777,7 @@
                             </div>
 
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
 
                                 <label>Tour Image <b>*</b></label>
 
@@ -1776,7 +1797,7 @@
                             </div>
 
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
 
                                 <label>Tour Amount <b>*</b></label>
 
@@ -1789,6 +1810,26 @@
                                            class="form-control"
                                            placeholder="Enter amount"
                                            required>
+
+                                </div>
+
+                            </div>
+
+                                <div class="col-md-3">
+
+                                <label>
+                                   Assigned Staff <b>*</b>
+                                </label>
+
+                                <div class="tour-form-input">
+
+                                    <i class="fas fa-users"></i>
+
+                                    <select name="staff" class="form-control" >
+                                        @foreach($staff as $key)
+                                        <option value="{{$key->id}}">{{$key->staff_name}}</option>
+                                        @endforeach
+                                    </select>
 
                                 </div>
 
@@ -1996,6 +2037,7 @@ $(document).ready(function () {
         var features    = button.attr('data-features');
         var description = button.attr('data-description');
         var image       = button.attr('data-image');
+        var staff       = button.attr('data-staff');
 
 
         // Fill modal inputs
@@ -2014,6 +2056,8 @@ $(document).ready(function () {
         $('#edit_features').val(features);
 
         $('#edit_description').val(description);
+
+        $('#edit_staff_name').val(staff);
 
 
         // Current image

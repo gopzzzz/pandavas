@@ -214,7 +214,7 @@
                         <p>Manage all tour bookings and passenger details</p>
                     </div>
 
-                    <a href="{{ route('bookings.store') }}"
+                    <a href="{{ route('bookings.index') }}"
                        class="add-booking-btn">
                         <i class="fa fa-plus me-1"></i>
                         New Booking

@@ -335,13 +335,14 @@
 
                     <div class="col-md-4">
                         <label>Tour <span>*</span></label>
-                       <select name="tour_id" class="form-select" required>
+                       <select name="tour_id" id="tour_id" class="form-select" required>
     <option value="">Select Tour</option>
 
     @foreach($tours as $tour)
         <option value="{{ $tour->id }}"
             {{ old('tour_id') == $tour->id ? 'selected' : '' }}>
-            {{ $tour->tourname }}
+            {{ $tour->tourname }} -
+            {{ \Carbon\Carbon::parse($tour->date)->format('d-m-Y') }}
         </option>
     @endforeach
 </select>
@@ -369,23 +370,14 @@
 
                     <div class="col-md-6">
                         <label>Pickup Location</label>
-                   
-<input type="text"
-       name="pickuplocation"
-       class="form-control"
-       value="{{ old('pickuplocation') }}"
-       placeholder="Enter pickup location">
+
+                        <select name="pickuplocation" id="pickup_location" class="form-select" required>
+    <option value="">Select Pickup Location</option>
+</select>
+
                     </div>
 
-                    <div class="col-md-6">
-                        <label>Customer ID</label>
-                <input type="text"
-       name="cus_id"
-       class="form-control"
-       value="{{ old('cus_id') }}"
-       placeholder="Enter customer ID">
-                    </div>
-
+                  
                 </div>
             </div>
 
@@ -401,6 +393,8 @@
             <i class="fa fa-plus"></i> Add Passenger
         </button>
     </div>
+
+    <input type="hidden" id="rowcout">
 
    <div id="passengerContainer">
 
@@ -519,6 +513,8 @@
                     <div class="col-md-4">
                         <label>Total Amount <span>*</span></label>
 
+                        <input type="hidden" id="tour_price">
+
                         <div class="input-group">
                             <span class="input-group-text">₹</span>
                           <input type="number"
@@ -571,7 +567,23 @@
 </select>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <label>Discount</label>
+
+                        <div class="input-group">
+                            <span class="input-group-text">₹</span>
+                          <input type="number"
+       name="discount"
+       id="discount"
+       class="form-control"
+       step="0.01"
+       min="0"
+       value="{{ old('discount', 0) }}"
+       placeholder="0.00">
+                        </div>
+                    </div>
+
+                     <div class="col-md-4">
                         <label>Received Amount</label>
 
                         <div class="input-group">
@@ -587,7 +599,8 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+
+                    <div class="col-md-4">
                         <label>Pending Amount</label>
 
                         <div class="input-group">
@@ -636,10 +649,24 @@
 
 
 <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
-<script>$(document).ready(function () {
+<script>
+$(document).ready(function () {
+
+    function calculateTotal(passengerNumber) {
+
+        let tourPrice = parseFloat($('#tour_price').val()) || 0;
+        passengerNumber = parseInt(passengerNumber) || 0;
+
+        let total = tourPrice * passengerNumber;
+
+        $('#totalamount').val(total.toFixed(2));
+    }
+
 
     let passengerIndex = {{ count($oldPassengers) }};
 
+
+    // ADD PASSENGER
     $('#addPassenger').click(function () {
 
         let passengerNumber = passengerIndex + 1;
@@ -722,9 +749,18 @@
         $('#passengerContainer').append(html);
 
         passengerIndex++;
+
+        let passengerCount =
+            $('#passengerContainer .passenger-card').length;
+
+        $('#rowcout').val(passengerCount);
+
+        calculateTotal(passengerCount);
+        calculatePendingAmount();
     });
 
 
+    // REMOVE PASSENGER
     $(document).on('click', '.remove-passenger-btn', function () {
 
         $(this).closest('.passenger-card').remove();
@@ -737,9 +773,131 @@
 
         });
 
+        let passengerCount =
+            $('#passengerContainer .passenger-card').length;
+
+        $('#rowcout').val(passengerCount);
+
+        calculateTotal(passengerCount);
+        calculatePendingAmount();
     });
+
+
+    // TOUR CHANGE
+    $('#tour_id').on('change', function () {
+
+        let tourId = $(this).val();
+
+        $('#pickup_location').html(
+            '<option value="">Loading...</option>'
+        );
+
+        $('#tour_price').val('');
+        $('#totalamount').val('');
+
+        if (tourId === '') {
+
+            $('#pickup_location').html(
+                '<option value="">Select Pickup Location</option>'
+            );
+
+            return;
+        }
+
+
+        $.ajax({
+
+            url: "{{ url('/tour-pickup-locations') }}/" + tourId,
+
+            type: "GET",
+
+            dataType: "json",
+
+            success: function (response) {
+
+                if (response.success) {
+
+                    // Pickup locations
+                    $('#pickup_location').html(
+                        '<option value="">Select Pickup Location</option>'
+                    );
+
+                    $.each(
+                        response.pickup_locations,
+                        function (index, location) {
+
+                            $('#pickup_location').append(
+                                $('<option>', {
+                                    value: location,
+                                    text: location
+                                })
+                            );
+
+                        }
+                    );
+
+
+                    // Set tour price
+                    $('#tour_price').val(response.price);
+
+
+                    // Calculate total AFTER AJAX response
+                    let passengerCount =
+                        $('#passengerContainer .passenger-card').length;
+
+                    $('#rowcout').val(passengerCount);
+
+                    calculateTotal(passengerCount);
+                    calculatePendingAmount();
+                }
+
+            },
+
+            error: function () {
+
+                $('#pickup_location').html(
+                    '<option value="">No pickup locations found</option>'
+                );
+
+                $('#tour_price').val('');
+                $('#totalamount').val('');
+            }
+
+        });
+
+    });
+
+    function calculatePendingAmount() {
+
+    let totalAmount = parseFloat($('#totalamount').val()) || 0;
+    let discount = parseFloat($('#discount').val()) || 0;
+    let receivedAmount = parseFloat($('#received_amount').val()) || 0;
+
+    let pendingAmount = totalAmount - (receivedAmount + discount);
+
+    // Don't allow negative pending amount
+    if (pendingAmount < 0) {
+        pendingAmount = 0;
+    }
+
+    $('#pending_amount').val(pendingAmount.toFixed(2));
+}
+
+
+// When discount changes
+$('#discount').on('input', function () {
+    calculatePendingAmount();
+});
+
+
+// When received amount changes
+$('#received_amount').on('input', function () {
+    calculatePendingAmount();
+});
 
 });
 </script>
+
+
 
 @endsection

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\BookingMaster;
 use App\Models\BookingTrans;
+use App\Models\Tour;
 
 
 class BookingController extends Controller
@@ -19,6 +20,28 @@ class BookingController extends Controller
 
         return view('bookings', compact('tours'));
     }
+public function getPickupLocations($tour_id)
+{
+     $tour = DB::table('tours')
+        ->where('id', $tour_id)
+        ->first();
+
+    if (!$tour) {
+        return response()->json([
+            'success' => false
+        ]);
+    }
+
+    $locations = array_filter(
+        array_map('trim', explode(',', $tour->pickuplocations))
+    );
+
+    return response()->json([
+        'success' => true,
+        'pickup_locations' => array_values($locations),
+        'price' => $tour->amount
+    ]);
+}
 
 
     // ADD
@@ -75,6 +98,7 @@ class BookingController extends Controller
         $booking->received_amount    = $request->received_amount ?? 0;
         $booking->pending_amount     = $request->pending_amount ?? 0;
         $booking->cus_id             = $request->cus_id;
+        $booking->discount             = $request->discount;
 
         $booking->save();
 
