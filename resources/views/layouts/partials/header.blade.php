@@ -267,6 +267,24 @@
 
 
 
+<li class="nav-item">
+
+    <a href="{{ route('banners.index') }}"
+       class="nav-link">
+
+        <i class="nav-icon fas fa-bullhorn"></i>
+        <p>Banners</p>
+
+    </a>
+
+</li>
+
+
+
+
+
+
+
 
 <li class="nav-item">
     <a href="{{ route('customers.index') }}" class="nav-link">
@@ -276,7 +294,20 @@
 </li>
 
 
+<li class="nav-item">
 
+    <a href="{{ route('enquiries.index') }}"
+       class="nav-link">
+
+        <i class="nav-icon fas fa-envelope"></i>
+
+        <p>
+            Enquiries
+        </p>
+
+    </a>
+
+</li>
 
 
 

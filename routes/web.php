@@ -15,6 +15,10 @@ use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\UploadsController;
 use App\Http\Controllers\RevenueReportsController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EnquiriesController;
+use App\Http\Controllers\BannersController;
+
+
 
 
 Route::get('/', function () {
@@ -171,6 +175,55 @@ Route::get('/revenue-reports', [RevenueReportsController::class, 'index'])
 
 Route::get('/customers', [CustomerController::class, 'index'])
     ->name('customers.index');
+
+
+
+
+
+
+Route::get('/enquiries', [EnquiriesController::class, 'index'])
+    ->name('enquiries.index');
+
+Route::post('/enquiries', [EnquiriesController::class, 'store'])
+    ->name('enquiries.store');
+
+Route::put('/enquiries/{id}', [EnquiriesController::class, 'update'])
+    ->name('enquiries.update');
+
+Route::delete('/enquiries/{id}', [EnquiriesController::class, 'destroy'])
+    ->name('enquiries.destroy');
+
+
+
+
+
+
+
+
+Route::get('/banners', [BannersController::class, 'index'])
+    ->name('banners.index');
+
+Route::post('/banners', [BannersController::class, 'store'])
+    ->name('banners.store');
+
+Route::put('/banners/{id}', [BannersController::class, 'update'])
+    ->name('banners.update');
+
+Route::delete('/banners/{id}', [BannersController::class, 'destroy'])
+    ->name('banners.destroy');
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
